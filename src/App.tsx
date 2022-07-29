@@ -3,7 +3,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 import config from './config';
 import BaseLayout from './layouts/BaseLayout';
-import { RouterView } from './router';
+import { RouterView } from './core/router';
 
 export default function App() {
   return (

@@ -13,6 +13,10 @@ export default function AppHeader() {
             Home
           </Button>
 
+          <Button color='inherit' component={RouterLink} to='/catalog'>
+            Catalog
+          </Button>
+
           <Button color='inherit' component={RouterLink} to='/about'>
             About
           </Button>

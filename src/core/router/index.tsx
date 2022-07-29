@@ -2,8 +2,9 @@ import * as React from 'react';
 import type { RouteObject } from "react-router-dom";
 import { useRoutes } from "react-router-dom";
 
-import baseRoutes from '../modules/base/routes';
-import homeRoutes from '../modules/home/routes';
+import baseRoutes from '../../modules/base/routes';
+import catalogRoutes from '../../modules/catalog/routes';
+import homeRoutes from '../../modules/home/routes';
 
 import Redirect from './Redirect';
 import PageLoader from './PageLoader';
@@ -15,6 +16,7 @@ const routes: RouteObject[] = [
   },
 
   ...baseRoutes,
+  ...catalogRoutes,
   ...homeRoutes,
 ];
 
