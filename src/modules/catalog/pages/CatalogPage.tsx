@@ -2,27 +2,20 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import { useEffect } from 'react';
 
-import { useAppDispatch, useAppSelector } from '../../../core/store/hooks';
-import { fetchPokemonsList } from '../../../core/store/actions';
-
-import {
-  getCatalogError,
-  getCatalogResults,
-  isCatalogLoading,
-} from '../store/selectors';
+import { useCatalogStore } from '../store/hooks';
 
 export default function CatalogPage() {
-  const dispatch = useAppDispatch();
+  const {
+    results,
+    error,
+    isLoading,
+    clearPokemonsList,
+    fetchPokemonsList,
+    clearAndFetchPokemonList,
+  } = useCatalogStore();
 
-  const results = useAppSelector(getCatalogResults);
-  const error = useAppSelector(getCatalogError);
-  const isLoading = useAppSelector(isCatalogLoading);
-
-  useEffect(() => {
-    dispatch(fetchPokemonsList());
-  }, [dispatch]);
-
-  console.log('render');
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => void fetchPokemonsList(), []);
 
   return (
     <Container sx={{ py: 2 }}>
@@ -31,7 +24,25 @@ export default function CatalogPage() {
           variant='outlined'
           disabled={isLoading}
           sx={{ mr: 2 }}
-          onClick={() => dispatch(fetchPokemonsList())}
+          onClick={() => clearPokemonsList()}
+        >
+          Clear
+        </Button>
+
+        <Button
+          variant='outlined'
+          disabled={isLoading}
+          sx={{ mr: 2 }}
+          onClick={() => clearAndFetchPokemonList()}
+        >
+          Clear and Fetch
+        </Button>
+
+        <Button
+          variant='outlined'
+          disabled={isLoading}
+          sx={{ mr: 2 }}
+          onClick={() => fetchPokemonsList()}
         >
           Refresh
         </Button>

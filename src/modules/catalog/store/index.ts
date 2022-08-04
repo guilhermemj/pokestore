@@ -1,13 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import initialState from './state';
-import { fetchPokemonsList } from './actions';
+import { clearPokemonsList, fetchPokemonsList } from './actions';
 
 export default createSlice({
   name: 'catalog',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    builder.addCase(clearPokemonsList, (state) => {
+      Object.assign(state, initialState);
+    });
+
     builder.addCase(fetchPokemonsList.pending, (state) => {
       state.loading += 1;
     });
