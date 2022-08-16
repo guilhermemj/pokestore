@@ -1,5 +1,7 @@
 import Axios from 'axios';
 
+import { getIdFromUrl, getImageUrl, simulateRequest } from './utils';
+
 import {
   ApiOptions,
   PokeApiListResult,
@@ -9,22 +11,6 @@ import {
 } from './types';
 
 const LIST_API_LIMIT = 15;
-
-function getIdFromUrl(url: string) {
-  return url.replace('https://pokeapi.co/api/v2/pokemon/', '').replace('/', '');
-}
-
-function getImageUrl(id: string) {
-  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
-}
-
-async function simulateRequest<T = any>(response: T): Promise<T> {
-  await new Promise((r) => setTimeout(r, 750));
-
-  if (Math.random() < 0.25) throw new Error('Not your lucky day?');
-
-  return response;
-}
 
 export function createAPI(baseURL: string, { useMocks = false }: ApiOptions = {}) {
   const $http = Axios.create({ baseURL });
@@ -36,9 +22,9 @@ export function createAPI(baseURL: string, { useMocks = false }: ApiOptions = {}
       if (useMocks) {
         return simulateRequest(Array(LIST_API_LIMIT).fill(null).map((_, index) => {
           const id = `${index + 1}`;
-          const name = `poke_${index}`;
+          const name = `poke_${id}`;
           const imageUrl = getImageUrl(id);
-          return { id, name, imageUrl, types: [] };
+          return { id, name, imageUrl, types: ['grass', 'fire', 'water'] };
         }));
       }
 

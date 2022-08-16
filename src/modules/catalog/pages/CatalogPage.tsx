@@ -1,8 +1,10 @@
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 import { useEffect } from 'react';
 
 import { useCatalogStore } from '../store/hooks';
+import CatalogProduct from '../components/CatalogProduct';
 
 export default function CatalogPage() {
   const {
@@ -44,7 +46,7 @@ export default function CatalogPage() {
           sx={{ mr: 2 }}
           onClick={() => fetchPokemonsList()}
         >
-          Refresh
+          Fetch
         </Button>
 
         {isLoading && 'Loading...'}
@@ -56,7 +58,15 @@ export default function CatalogPage() {
         </p>
       )}
 
-      {results.map((obj, i) => <p key={i}>{JSON.stringify(obj)}</p>)}
+      <Grid container spacing={2}>
+        {results.map((details) => (
+          <Grid item xs={3} key={details.id}>
+            <CatalogProduct details={details} />
+          </Grid>
+        ))}
+      </Grid>
+
+
     </Container>
   );
 };

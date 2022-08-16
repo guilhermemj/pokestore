@@ -4,6 +4,7 @@ import catalogSlice from '../../modules/catalog/store';
 
 export const store = configureStore({
   reducer: {
+    // TODO: https://redux.js.org/usage/code-splitting
     [catalogSlice.name]: catalogSlice.reducer,
   },
 });
